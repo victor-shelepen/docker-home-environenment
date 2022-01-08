@@ -1,0 +1,30 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./hosts:/etc/nginx/conf.d
+      - ./www:/var/www
+    links:
+      - php
+  php:
+    build: ./images/php
+    links:
+      - mysql
+    volumes:
+      - ./www:/var/www
+    environment:
+      XDEBUG_MODE: 'off'
+      XDEBUG_CONFIG: "client_host=host.docker.internal"
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: sait
