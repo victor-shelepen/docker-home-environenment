@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  nginx:
+    entrypoint: ["echo", "Service nginx disabled"]
+  php:
+    entrypoint: ["echo", "Service php disabled"]

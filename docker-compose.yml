@@ -28,3 +28,18 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: sait
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+  sql_server:
+    image: mcr.microsoft.com/mssql/server
+    container_name: sql_server_container
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: '!Password!'
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./shared-volume:/var/opt/mssql/shared-volume
+    restart: unless-stopped 
